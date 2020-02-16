@@ -7,7 +7,7 @@ from ..models import Location
 class Kumo:
     def __init__(self, client):
         self._client = client
-
+    
     async def gis(self, location: str, fast: bool = False, more: bool = False, map_zoom: int = 12,
                   include_map: bool = False) -> Union[Location, List[Location]]:
         """|coro|
@@ -35,14 +35,14 @@ class Kumo:
         ------
         :class:`NoResults`
         """
-        r = await self._client.http.get('/kumo/gis', params={'q': location, 'fast': fast, 'more': more, 'map_zoom': map_zoom,
-                                                             'include_map': include_map})
-
+        r = await self._client.http.get('/kumo/gis', params={'q': location, 'fast': fast, 'more': more,
+                                                             'map_zoom': map_zoom, 'include_map': include_map})
+        
         if r['code'] == 404:
             raise NoResults
-
+        
         result = r['data']
         if isinstance(result, list):
             return [Location(r) for r in result]
-
+        
         return Location(result)

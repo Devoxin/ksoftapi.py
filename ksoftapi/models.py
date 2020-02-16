@@ -79,14 +79,14 @@ class Recommendation:
         spotify = data['spotify']
         spotify_album = spotify['album']
         spotify_artists = spotify['artists']
-
+        
         self.name: str = data['name']
-
+        
         self.youtube_id: str = youtube['id']
         self.youtube_link: str = youtube['link']
         self.youtube_title: str = youtube['title']
         self.youtube_thumbnail: str = youtube['thumbnail']
-
+        
         self.spotify_id: str = spotify['id']
         self.spotify_name: str = spotify['name']
         self.spotify_link: str = spotify['link']
@@ -117,7 +117,7 @@ class Tag:
     def __init__(self, data: dict):
         self.name: str = data.get('name')
         self.nsfw: bool = data.get('nsfw')
-
+    
     def __str__(self):
         return self.name
 
@@ -128,23 +128,23 @@ class TagCollection:
         self.models: List[Tag] = [Tag(t) for t in self.raw_models]
         self.sfw_tags: List[str] = data.get('tags')
         self.nsfw_tags: List[str] = data.get('nsfw_tags', [])
-
+    
     def __len__(self):
         return len(self.models)
-
+    
     def __dict__(self):
         return self.raw_models
-
+    
     def __getitem__(self, item):
         return next((item == t.name for t in self.models), None)
-
+    
     def __iter__(self):
         for t in self.models:
             yield t
-
+    
     def __str__(self):
         return ', '.join([t.name for t in self.models])
-
+    
     def exists(self, name):
         return any(name == t.name for t in self.models)
 

@@ -20,28 +20,29 @@ class Client:
     **loop: asyncio loop
         Your asyncio loop.
     """
+    
     def __init__(self, api_key: str, loop=None):
         self._loop = loop or asyncio.get_event_loop()
         self.api_key = api_key
         self.http = HttpClient(authorization=self.api_key, loop=self._loop)
-
+        
         self._bans_api = bans.Bans(self)
         self._images_api = images.Images(self)
         self._kumo_api = kumo.Kumo(self)
         self._music_api = music.Music(self)
-
+    
     @property
     def bans(self) -> bans.Bans:
         return self._bans_api
-
+    
     @property
     def images(self) -> images.Images:
         return self._images_api
-
+    
     @property
     def kumo(self) -> kumo.Kumo:
         return self._kumo_api
-
+    
     @property
     def music(self) -> music.Music:
         return self._music_api
