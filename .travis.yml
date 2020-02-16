@@ -14,4 +14,3 @@ install:
 
 script:
   - flake8
-  - pylint ksoftapi
