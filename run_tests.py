@@ -45,15 +45,18 @@ if __name__ == '__main__':
 
     for test in tests:
         test_name = test.__name__
-        formatted_test_name = f"-- {test_name[5:]} test --"
+        formatted_test_name = f'-- {test_name[5:]} test --'
         print(formatted_test_name)
 
         failed = test()
         if failed:
-            print("Failed")
+            print('Failed')
             fail_count += 1
         else:
-            print("Passed")
+            print('Passed')
 
-    print(f"Fails: {fail_count}")
-    sys.exit(fail_count)
+    print(f'Fails: {fail_count}')
+    if fail_count == 0:
+        sys.exit(0)
+    else:
+        sys.exit(1)
